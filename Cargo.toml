@@ -1,0 +1,7 @@
+[package]
+name = "cli_minesweeper"
+version = "0.1.0"
+authors = ["ebauer <ebauer@sohnix.local>"]
+edition = "2018"
+
+[dependencies]
