@@ -2,7 +2,7 @@ use std::{
     fmt::Display,
 };
 
-pub trait ActionTypeT: Display + Eq + From<&'static str> + Clone {
+pub trait ActionTypeT: Display + Eq + From<&'static str> + Clone + Default + Into<usize> {
     type MessageThing: Display + From<&'static str>;
 
     fn get_list() -> Vec<Self>;
@@ -19,7 +19,7 @@ pub trait ActionT: Display + From<&'static str> {
 }
 
 pub trait ActionHandler {
-    type ActionThing: Display;
+    type ActionThing: ActionT;
     type ResultThing;
 
     /// Perform an action that may change the data of the implementor type and returns a result

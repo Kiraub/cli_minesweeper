@@ -17,6 +17,7 @@ use super::{
     Message
 };
 
+#[derive(Default)]
 pub struct UserAction {
     atype: UserActionType
 }
@@ -38,10 +39,7 @@ impl ActionT for UserAction {
     type MessageThing = Message;
 
     fn new() -> UserAction {
-        let default = UserAction{
-            atype: UserActionType::Reset
-        };
-        UserAction{..default}
+        UserAction{..Default::default()}
     }
 
     fn get_type(&self) -> Self::ActionTypeThing {

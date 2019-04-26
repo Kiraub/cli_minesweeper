@@ -18,6 +18,12 @@ pub enum UserActionType {
     Reset
 }
 
+impl Default for UserActionType {
+    fn default() -> UserActionType {
+        UserActionType::Reset
+    }
+}
+
 impl Display for UserActionType {
     fn fmt(&self, f: &mut Formatter) -> FmtResult {
         Ok(())
@@ -29,23 +35,27 @@ impl From<&str> for UserActionType {
         UserActionType::Reset
     }
 }
+impl From<UserActionType> for usize {
+    fn from(s: UserActionType) -> Self {
+        match s {
+            UserActionType::Reset => 0
+        }
+    }
+}
 
 impl PartialEq for UserActionType {
     fn eq(&self, o: &UserActionType) -> bool {
-        match *self {
-            o => true,
-            _ => false
-        }
+        usize::from(*self) == usize::from(*o)
     }
 }
 impl Eq for UserActionType {}
 
-impl Copy for UserActionType {}
 impl Clone for UserActionType {
     fn clone(&self) -> UserActionType {
         *self
     }
 }
+impl Copy for UserActionType {}
 
 impl ActionTypeT for UserActionType {
     type MessageThing = Message;
