@@ -1,17 +1,15 @@
 use std::{
     fmt::{
-        Result as FmtResult,
         Display,
         Formatter,
     },
 };
-
 use crate::part_traits::{
     action_traits::ActionTypeT
 };
-
 use super::{
-    Message
+    Message,
+    FmtResult
 };
 
 pub enum UserActionType {
@@ -25,13 +23,13 @@ impl Default for UserActionType {
 }
 
 impl Display for UserActionType {
-    fn fmt(&self, f: &mut Formatter) -> FmtResult {
+    fn fmt(&self, _f: &mut Formatter) -> FmtResult {
         Ok(())
     }
 }
 
 impl From<&str> for UserActionType {
-    fn from(s: &str) -> UserActionType {
+    fn from(_s: &str) -> UserActionType {
         UserActionType::Reset
     }
 }

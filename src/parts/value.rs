@@ -1,6 +1,5 @@
 use std::{
     fmt::{
-        Result as FmtResult,
         Display,
         Formatter,
     },
@@ -14,7 +13,7 @@ use crate::part_traits::{
     }
 };
 use super::{
-    Message
+    FmtResult
 };
 
 pub enum FieldValue {
@@ -73,30 +72,6 @@ impl From<FieldValue> for &str {
         }
     }
 }
-/* not used probably
-impl From<usize> for FieldValue {
-    fn from(s: usize) -> FieldValue {
-        use FieldValue::*;
-        match s {
-            0 => None,
-            1 => One,
-            2 => Two,
-            3 => Three,
-            4 => Four,
-            5 => Five,
-            6 => Six,
-            7 => Seven,
-            8 => Eight,
-            _ => None
-        }
-    }
-}
-impl From<&str> for FieldValue {
-    fn from(s: &str) -> FieldValue {
-        FieldValue::from(usize::from_str_radix(s, 10).unwrap())
-    }
-}
-*/
 
 impl Clone for FieldValue {
     fn clone(&self) -> FieldValue {

@@ -1,6 +1,5 @@
 use std::{
     fmt::{
-        Result as FmtResult,
         Display,
         Formatter,
     },
@@ -14,7 +13,8 @@ use super::{
     actiontype::{
         UserActionType
     },
-    Message
+    Message,
+    FmtResult
 };
 
 #[derive(Default)]
@@ -23,13 +23,13 @@ pub struct UserAction {
 }
 
 impl Display for UserAction {
-    fn fmt(&self, f: &mut Formatter) -> FmtResult {
+    fn fmt(&self, _f: &mut Formatter) -> FmtResult {
         Ok(())
     }
 }
 
 impl From<&str> for UserAction {
-    fn from(s: &str) -> UserAction {
+    fn from(_s: &str) -> UserAction {
         UserAction::new()
     }
 }
