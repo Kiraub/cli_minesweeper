@@ -21,7 +21,13 @@ use super::{
 };
 
 pub struct MineBoard {
-    fieldMap: HashMap<Coord,Field>
+    field_map: HashMap<Coord,Field>
+}
+
+impl Display for MineBoard {
+    fn fmt(&self, f: &mut Formatter) -> FmtResult {
+        write!(f, "debug board display")
+    }
 }
 
 impl BoardT<Field,Number> for MineBoard {
@@ -30,7 +36,15 @@ impl BoardT<Field,Number> for MineBoard {
 
     fn new() -> Self {
         MineBoard{
-            fieldMap: HashMap::new()
+            field_map: HashMap::new()
         }
+    }
+
+    fn get_field(&self, _pos: Self::PositionThing) -> Field {
+        Field::default()
+    }
+
+    fn set_field(&self, _pos: Self::PositionThing, _field: Field) -> Result<(), Self::MessageThing> {
+        Ok(())
     }
 }

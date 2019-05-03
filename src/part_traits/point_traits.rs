@@ -2,7 +2,7 @@ use std::{
     fmt::Display,
 };
 
-pub trait PointT<N>: Display where
+pub trait PointT<N>: Display + PartialEq where
     N: Ord + Display + Clone {
     
     fn new() -> Self;

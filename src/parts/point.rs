@@ -14,7 +14,7 @@ use super::{
     Number
 };
 
-#[derive(Default)]
+#[derive(Default,Hash)]
 pub struct Coord {
     row: Number,
     col: Number
@@ -26,11 +26,18 @@ impl Display for Coord {
     }
 }
 
-impl From<(Number,Number)> for Coord {
-    fn from(tuple: (Number, Number)) -> Self {
-        Coord{row: tuple.0, col: tuple.1}
+impl From<Coord> for (Number,Number) {
+    fn from(c: Coord) -> (Number, Number) {
+        (c.get_x(), c.get_y())
     }
 }
+
+impl PartialEq for Coord {
+    fn eq(&self, o: &Coord) -> bool {
+        self.get_x() == o.get_x() && self.get_y() == o.get_y()
+    }
+}
+impl Eq for Coord {}
 
 impl PointT<Number> for Coord {
 
