@@ -4,14 +4,14 @@ use std::{
         Formatter,
     }
 };
-use crate::part_traits::{
-    point_traits::{
-        PointT
-    }
-};
-use super::{
-    FmtResult,
-    Number
+use crate::{
+    part_traits::{
+        point_traits::{
+            PointT
+        }
+    },
+    Number,
+    FmtResult
 };
 
 #[derive(Default,Hash)]

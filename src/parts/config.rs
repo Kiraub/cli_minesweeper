@@ -4,15 +4,15 @@ use std::{
         Formatter,
     }
 };
-use crate::part_traits::{
-    config_traits::{
-        ConfigT
-    }
-};
-use super::{
+use crate::{
+    part_traits::{
+        config_traits::{
+            ConfigT
+        }
+    },
+    Message,
     FmtResult,
-    Number,
-    Message
+    Number
 };
 
 #[derive(PartialEq,Eq,Clone,Copy)]

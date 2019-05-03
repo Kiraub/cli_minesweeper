@@ -4,13 +4,15 @@ use std::{
         Formatter,
     }
 };
-use crate::part_traits::{
-    field_traits::{
-        FieldT
-    }
+use crate::{
+    part_traits::{
+        field_traits::{
+            FieldT
+        }
+    },
+    FmtResult
 };
 use super::{
-    FmtResult,
     value::FieldValue
 };
 

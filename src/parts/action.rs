@@ -4,17 +4,19 @@ use std::{
         Formatter,
     },
 };
-use crate::part_traits::{
-    action_traits::{
-        ActionT
-    }
+use crate::{
+    part_traits::{
+        action_traits::{
+            ActionT
+        }
+    },
+    Message,
+    FmtResult
 };
 use super::{
     actiontype::{
         UserActionType
-    },
-    Message,
-    FmtResult
+    }
 };
 
 #[derive(Default)]

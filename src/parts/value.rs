@@ -7,12 +7,12 @@ use std::{
         Ordering
     }
 };
-use crate::part_traits::{
-    value_traits::{
-        ValueT
-    }
-};
-use super::{
+use crate::{
+    part_traits::{
+        value_traits::{
+            ValueT
+        }
+    },
     FmtResult
 };
 

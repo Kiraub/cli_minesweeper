@@ -7,21 +7,30 @@ use std::{
         HashMap
     }
 };
-use crate::part_traits::{
-    board_traits::{
-        BoardT
-    }
+use crate::{
+    part_traits::{
+        board_traits::{
+            BoardT
+        }
+    },
+    Message,
+    FmtResult,
+    Number
 };
 use super::{
-    FmtResult,
-    Number,
-    Message,
     point::Coord,
     field::Field
 };
 
 pub struct MineBoard {
     field_map: HashMap<Coord,Field>
+}
+
+impl MineBoard {
+    pub fn init(&self, width: Number, height: Number) -> Result<Message, Message> {
+        
+        Ok("Board initialized".to_string())
+    }
 }
 
 impl Display for MineBoard {
@@ -44,7 +53,7 @@ impl BoardT<Field,Number> for MineBoard {
         Field::default()
     }
 
-    fn set_field(&self, _pos: Self::PositionThing, _field: Field) -> Result<(), Self::MessageThing> {
+    fn set_field(&mut self, _pos: Self::PositionThing, _field: Field) -> Result<(), Self::MessageThing> {
         Ok(())
     }
 }

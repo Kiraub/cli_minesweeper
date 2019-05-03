@@ -4,10 +4,10 @@ use std::{
         Formatter,
     },
 };
-use crate::part_traits::{
-    action_traits::ActionTypeT
-};
-use super::{
+use crate::{
+    part_traits::{
+        action_traits::ActionTypeT
+    },
     Message,
     FmtResult
 };

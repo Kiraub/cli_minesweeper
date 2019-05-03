@@ -1,5 +1,6 @@
 use std::{
-    fmt::Display
+    fmt::Display,
+    convert::TryInto
 };
 
 pub enum ConfigHandlerError {
@@ -24,9 +25,14 @@ pub trait ConfigHandler<K,V> {
     type Key: From<K> + Into<K> + PartialEq;
     type Value: From<V> + Into<V> + PartialEq + Default;
     type ConfigThing: ConfigT<Self::Key,Self::Value>;
-    type UserInputThing: Into<K> + Into<V>;
+    type UserInputThing: ConfigParser<K> + ConfigParser<V>;
     type MessageThing: Display;
 
     fn try_get(config: &Self::ConfigThing, key: Self::UserInputThing) -> Result<&V,ConfigHandlerError>;
     fn try_set(config: &mut Self::ConfigThing, key: Self::UserInputThing, val: Self::UserInputThing) -> Result<&V,ConfigHandlerError>;
+}
+
+pub trait ConfigParser<Out> {
+    fn parse(s: Self) -> Out;
+    fn try_parse(s: Self) -> Option<Out>;
 }
