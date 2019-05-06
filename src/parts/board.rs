@@ -14,6 +14,9 @@ use crate::{
         },
         field_traits::{
             FieldT
+        },
+        point_traits::{
+            PointT
         }
     },
     Message,
@@ -57,7 +60,30 @@ impl MineBoard {
 
 impl Display for MineBoard {
     fn fmt(&self, f: &mut Formatter) -> FmtResult {
-        write!(f, "debug board display")
+        use std::cmp::Ordering;
+        let mut max_width = 0;
+        let mut list : Vec<(Coord, Field)> = Vec::new();
+        let mut out : String = String::new();
+        for key in self.field_map.keys() {
+            list.push((*key,self.field_map.get(key).unwrap().clone()));
+            if key.get_x() > max_width {
+                max_width = key.get_x();
+            }
+        }
+        list.sort_by(|some,other| -> Ordering {
+            match (*some).0.get_y().cmp(&(*other).0.get_y()) {
+                Ordering::Equal => (*some).0.get_x().cmp(&(*other).0.get_x()),
+                any_order => any_order
+            }
+        });
+        let mut list_iter = list.iter();
+        while let Some(elem) = list_iter.next() {
+            out.push_str(&format!(" {}", elem.1));
+            if elem.0.get_x() == max_width {
+                out.push('\n');
+            }
+        }
+        write!(f, "{}", out)
     }
 }
 

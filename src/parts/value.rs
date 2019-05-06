@@ -25,7 +25,9 @@ pub enum FieldValue {
     Five,
     Six,
     Seven,
-    Eight
+    Eight,
+    Bomb,
+    Mark
 }
 
 impl Default for FieldValue {
@@ -36,7 +38,8 @@ impl Default for FieldValue {
 
 impl Display for FieldValue {
     fn fmt(&self, f: &mut Formatter) -> FmtResult {
-        write!(f, "{}", self)
+        let out : &str = self.into();
+        write!(f, "{}", out)
     }
 }
 
@@ -52,15 +55,17 @@ impl From<FieldValue> for usize {
             Five => 5,
             Six => 6,
             Seven => 7,
-            Eight => 8
+            Eight => 8,
+            Bomb => 999,
+            Mark => 1000
         }
     }
 }
-impl From<FieldValue> for &str {
-    fn from(s: FieldValue) -> Self {
+impl From<&FieldValue> for &str {
+    fn from(s: &FieldValue) -> Self {
         use FieldValue::*;
         match s {
-            None => "0",
+            None => "_",
             One => "1",
             Two => "2",
             Three => "3",
@@ -68,7 +73,9 @@ impl From<FieldValue> for &str {
             Five => "5",
             Six => "6",
             Seven => "7",
-            Eight => "8"
+            Eight => "8",
+            Bomb => "B",
+            Mark => "M"
         }
     }
 }

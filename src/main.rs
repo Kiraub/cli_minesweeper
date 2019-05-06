@@ -6,7 +6,7 @@ use cli_minesweeper;
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let config = cli_minesweeper::parse(&args).unwrap_or_else(|parse_err| {
+    let config = cli_minesweeper::parse_args(&args).unwrap_or_else(|parse_err| {
         eprintln!("Problem parsing arguments: {}", parse_err);
         process::exit(1);
     });

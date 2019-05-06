@@ -46,6 +46,10 @@ impl Minesweeper {
             Err(e) => Err(e)
         }
     }
+
+    pub fn show_board(&self) {
+        print!("{}", self.game_board);
+    }
 }
 
 impl ActionHandler for Minesweeper {

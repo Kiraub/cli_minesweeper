@@ -14,7 +14,7 @@ use crate::{
     FmtResult
 };
 
-#[derive(Default,Hash)]
+#[derive(Default,Hash,Clone,Copy)]
 pub struct Coord {
     row: Number,
     col: Number

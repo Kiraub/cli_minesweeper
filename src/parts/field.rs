@@ -16,9 +16,16 @@ use super::{
     value::FieldValue
 };
 
+#[derive(Clone)]
 pub struct Field {
     val: FieldValue,
     vis: bool
+}
+
+impl Field {
+    pub fn _debug(&self, f: &mut Formatter) -> FmtResult {
+        write!(f, "<Value: {}, Visible: {}>", self.get_value(), self.get_visible())
+    }
 }
 
 impl Default for Field {
@@ -32,7 +39,11 @@ impl Default for Field {
 
 impl Display for Field {
     fn fmt(&self, f: &mut Formatter) -> FmtResult {
-        write!(f, "<Value: {}, Visible: {}>", self.get_value(), self.get_visible())
+        if self.get_visible() {
+            write!(f, "{}", self.get_value())
+        } else {
+            write!(f, "#")
+        }
     }
 }
 
