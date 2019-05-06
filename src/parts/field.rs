@@ -46,6 +46,10 @@ impl FieldT<FieldValue> for Field {
         self.val
     }
 
+    fn set_value(&mut self, val: FieldValue) {
+        self.val = val;
+    }
+
     fn get_visible(&self) -> bool {
         self.vis
     }

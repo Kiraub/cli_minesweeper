@@ -1,6 +1,5 @@
 use std::{
-    fmt::Display,
-    convert::TryInto
+    fmt::Display
 };
 
 pub trait ActionTypeT: Display + Eq + From<&'static str> + Clone + Default + Into<usize> {

@@ -7,6 +7,7 @@ pub trait FieldT<V>: Display where
 
     fn new() -> Self;
     fn get_value(&self) -> V;
+    fn set_value(&mut self, val: V);
     fn get_visible(&self) -> bool;
     fn set_visible(&mut self, vis: bool);
 }

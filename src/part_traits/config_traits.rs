@@ -1,6 +1,5 @@
 use std::{
-    fmt::Display,
-    convert::TryInto
+    fmt::Display
 };
 
 pub enum ConfigHandlerError {

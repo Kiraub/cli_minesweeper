@@ -2,6 +2,7 @@
 use crate::{
     part_traits::{
         config_traits::{
+            ConfigT,
             ConfigHandler,
             ConfigParser,
             ConfigHandlerError
@@ -32,8 +33,17 @@ pub struct Minesweeper {
 impl Minesweeper {
     pub fn new(init: Settings) -> Self {
         Minesweeper {
-            game_board: MineBoard::new(init),
+            game_board: MineBoard::new(),
             game_settings: init
+        }
+    }
+
+    pub fn start(&mut self) -> Result<&'static str,Message> {
+        let width = self.game_settings.get(0);
+        let height = self.game_settings.get(1);
+        match self.game_board.init(width, height) {
+            Ok(_) => Ok("Started game."),
+            Err(e) => Err(e)
         }
     }
 }
@@ -68,20 +78,20 @@ impl ConfigHandler<Number,Number> for Minesweeper {
     type MessageThing = Message;
 
     fn try_get(_config: &Self::ConfigThing, _ukey: Self::UserInputThing) -> Result<&Number, ConfigHandlerError> {
-        Ok(&0)
+        Err(ConfigHandlerError::IllegalKeyError)
     }
 
-    fn try_set(_config: &mut Self::ConfigThing, _key: Self::UserInputThing, val: Self::UserInputThing) -> Result<&Number,ConfigHandlerError> {
-        Ok(&0)
+    fn try_set(_config: &mut Self::ConfigThing, _key: Self::UserInputThing, _val: Self::UserInputThing) -> Result<&Number,ConfigHandlerError> {
+        Err(ConfigHandlerError::IllegalValueError)
     }
 }
 
 impl ConfigParser<Number> for UserInput {
-    fn parse(s: Self) -> Number {
+    fn parse(_s: Self) -> Number {
         0
     }
 
-    fn try_parse(s: Self) -> Option<Number> {
+    fn try_parse(_s: Self) -> Option<Number> {
         Some(0)
     }
 }

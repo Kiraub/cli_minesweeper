@@ -10,7 +10,6 @@ use crate::{
             ConfigT
         }
     },
-    Message,
     FmtResult,
     Number
 };
