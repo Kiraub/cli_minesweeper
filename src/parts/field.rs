@@ -85,7 +85,7 @@ impl Display for Field {
         } else if self.get_marked() {
             write!(f, "M")
         } else {
-            write!(f, "?")
+            write!(f, ".")
         }
     }
 }

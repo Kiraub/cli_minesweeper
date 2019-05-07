@@ -73,7 +73,7 @@ impl ActionHandler for Minesweeper {
         use UserActionType::*;
         match action.get_type() {
             Unknown => return Err("Unknown action."),
-            Reset => (),
+            Reset => return Ok(self.start().unwrap().to_string()),
             Set => (),
             Mark => (),
             Quit => self.game_over = true,
