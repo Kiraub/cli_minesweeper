@@ -130,12 +130,17 @@ impl MineBoard {
     fn reveal(&mut self, pos: &Coord) -> Option<Message> {
         match self.get_field(pos) {
             Ok(field) => {
-                let bomb = field.is_bomb();
-                self.reveal_neighbourhood(pos);
-                if !bomb {
-                    Some("Field picked.".to_string())
+                let mark = field.get_marked();
+                if !mark {
+                    let bomb = field.is_bomb();
+                    self.reveal_neighbourhood(pos);
+                    if !bomb {
+                        Some("Field picked.".to_string())
+                    } else {
+                        None
+                    }
                 } else {
-                    None
+                    Some("Marked field chosen.".to_string())
                 }
             },
             Err(msg) => Some(msg)
