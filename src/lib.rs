@@ -31,7 +31,7 @@ pub fn run(game_settings: Settings) -> Result<(), Box<dyn Error>> {
     };
     minesweeper_game.show_board();
     println!("Welcome to command-line interface minesweeper or CLI_MS for short!\n\
-    Above you can see the minesweeper board. Use <help> to list possible actions.");
+    Above you can see the minesweeper board. Use <Help> to list possible actions.");
     loop {
         let mut input = String::new();
         print!("action> ");

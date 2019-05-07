@@ -18,7 +18,8 @@ pub enum UserActionType {
     Set,
     Mark,
     Quit,
-    Pick
+    Pick,
+    Help
 }
 
 impl Default for UserActionType {
@@ -29,18 +30,28 @@ impl Default for UserActionType {
 
 impl Display for UserActionType {
     fn fmt(&self, f: &mut Formatter) -> FmtResult {
-        write!(f, "{}", usize::from(*self))
+        let out : &'static str = match self {
+            UserActionType::Unknown => "Unknown",
+            UserActionType::Reset => "Reset",
+            UserActionType::Set => "Set",
+            UserActionType::Mark => "Mark",
+            UserActionType::Quit => "Quit",
+            UserActionType::Pick => "Pick",
+            UserActionType::Help => "Help"
+        };
+        write!(f, "{}", out)
     }
 }
 
 impl From<&str> for UserActionType {
     fn from(s: &str) -> UserActionType {
-        match s {
-            "Reset" => UserActionType::Reset,
-            "Set" => UserActionType::Set,
-            "Mark" => UserActionType::Mark,
-            "Quit" => UserActionType::Quit,
-            "Pick" => UserActionType::Pick,
+        match &s.to_lowercase()[..] {
+            "r" | "reset" => UserActionType::Reset,
+            "s" | "set" => UserActionType::Set,
+            "m" | "mark" => UserActionType::Mark,
+            "q" | "quit" => UserActionType::Quit,
+            "p" | "pick" => UserActionType::Pick,
+            "h" | "help" => UserActionType::Help,
             _ => UserActionType::Unknown
         }
     }
@@ -53,7 +64,8 @@ impl From<UserActionType> for usize {
             UserActionType::Set => 1,
             UserActionType::Mark => 2,
             UserActionType::Quit => 3,
-            UserActionType::Pick => 4
+            UserActionType::Pick => 4,
+            UserActionType::Help => 5
         }
     }
 }
@@ -81,6 +93,7 @@ impl ActionTypeT for UserActionType {
             UserActionType::Mark,
             UserActionType::Reset,
             UserActionType::Set,
+            UserActionType::Help,
             UserActionType::Quit
         )
     }

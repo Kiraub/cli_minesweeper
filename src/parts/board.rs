@@ -66,21 +66,26 @@ impl MineBoard {
     }
 
     pub fn pick(&mut self, args: &Vec<String>) -> (Message,bool) {
-        if args.len() < 2 {
-            ("Not enough arguments provided".to_string(),false)
-        } else {
-            if let Ok(col) = usize::from_str_radix(&args[0],10) {
-                if let Ok(row) = usize::from_str_radix(&args[1],10) {
-                    match self.reveal(&Coord::create(col,row)) {
-                        Some(msg) => (msg,false),
-                        None => ("Bomb picked.".to_string(),true)
-                    }
+        match MineBoard::parse_coord(args) {
+            Ok(coord) => match self.reveal(&coord) {
+                Some(msg) => (msg, false),
+                None => ("Bomb picked.".to_string(), true)
+            },
+            Err(msg) => (msg.to_string(), false)
+        }
+    }
+
+    pub fn mark(&mut self, args: &Vec<String>) -> Message {
+        match MineBoard::parse_coord(args) {
+            Ok(coord) => {
+                if let Some(m_field) = self.get_mut(&coord) {
+                    m_field.set_marked(!m_field.get_marked());
+                    "Toggled mark on field.".to_string()
                 } else {
-                    ("Problem parsing arguments.".to_string(),false)
+                    "No such field.".to_string()
                 }
-            } else {
-                ("Problem parsing arguments.".to_string(),false)
-            }
+            },
+            Err(msg) => msg.to_string()
         }
     }
 
@@ -163,6 +168,22 @@ impl MineBoard {
             }
         }
     }
+
+    fn parse_coord(args: &Vec<String>) -> Result<Coord,&'static str> {
+        if args.len() < 2 {
+            Err("Not enough arguments provided")
+        } else {
+            if let Ok(col) = usize::from_str_radix(&args[0],10) {
+                if let Ok(row) = usize::from_str_radix(&args[1],10) {
+                    Ok(Coord::create(col-1,row-1))
+                } else {
+                    Err("Problem parsing arguments.")
+                }
+            } else {
+                Err("Problem parsing arguments.")
+            }
+        }
+    }
 }
 
 impl Display for MineBoard {
@@ -187,9 +208,20 @@ impl Display for MineBoard {
         while let Some(elem) = list_iter.next() {
             out.push_str(&format!(" {}", elem.1));
             if elem.0.get_x() == max_width {
+                if (elem.0.get_y()+1) % 5 == 0 {
+                    out.push_str(&"--");
+                }
                 out.push('\n');
             }
         }
+        for column in 1..=max_width+1 {
+            if (column) % 5 == 0 {
+                out.push_str(&" |");
+            } else {
+                out.push_str(&"  ");
+            }
+        }
+        out.push('\n');
         write!(f, "{}", out)
     }
 }

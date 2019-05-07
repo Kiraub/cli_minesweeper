@@ -10,7 +10,8 @@ use crate::{
         action_traits::{
             ActionT,
             ActionHandler,
-            ActionParser
+            ActionParser,
+            ActionTypeT
         },
         board_traits::{
             BoardT
@@ -75,11 +76,18 @@ impl ActionHandler for Minesweeper {
             Unknown => return Err("Unknown action."),
             Reset => return Ok(self.start().unwrap().to_string()),
             Set => (),
-            Mark => (),
+            Mark => return Ok(self.game_board.mark(action.get_args())),
             Quit => self.game_over = true,
             Pick => {
                 let (msg,over) = self.game_board.pick(action.get_args());
                 self.game_over = over;
+                return Ok(msg);
+            },
+            Help => {
+                let mut msg = String::from("Available actions:\n");
+                for (ix, elem) in UserActionType::get_list().iter().enumerate() {
+                    msg.push_str(&format!("{}:  {}\n", ix+1, elem));
+                }
                 return Ok(msg);
             }
         };

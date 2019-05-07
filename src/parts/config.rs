@@ -67,7 +67,7 @@ impl Default for Settings {
             width: 15,
             height: 15,
             neighbourhood: Neighbourhood::default(),
-            bombs: 15
+            bombs: 25
         }
     }
 }
