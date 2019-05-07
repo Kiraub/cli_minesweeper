@@ -16,13 +16,24 @@ use crate::{
 
 #[derive(Default,Hash,Clone,Copy)]
 pub struct Coord {
-    row: Number,
-    col: Number
+    /// X Axis
+    col: Number,
+    /// Y Axis
+    row: Number
+}
+
+impl Coord {
+    pub fn create(col: Number, row: Number) -> Coord {
+        Coord {
+            col,
+            row
+        }
+    }
 }
 
 impl Display for Coord {
     fn fmt(&self, f: &mut Formatter) -> FmtResult {
-        write!(f, "<Row: {}, Column: {}>", self.get_x(), self.get_y())
+        write!(f, "Column: <{}>, Row: <{}>", self.get_x(), self.get_y())
     }
 }
 
@@ -33,7 +44,7 @@ impl From<Coord> for (Number,Number) {
 }
 impl From<(Number,Number)> for Coord {
     fn from(tuple: (Number,Number)) -> Coord {
-        Coord{row: tuple.0, col: tuple.1}
+        Coord{col: tuple.0, row: tuple.1}
     }
 }
 
@@ -51,10 +62,10 @@ impl PointT<Number> for Coord {
     }
 
     fn get_x(&self) -> Number {
-        self.row
+        self.col
     }
 
     fn get_y(&self) -> Number {
-        self.col
+        self.row
     }
 }

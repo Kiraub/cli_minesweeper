@@ -26,8 +26,7 @@ pub enum FieldValue {
     Six,
     Seven,
     Eight,
-    Bomb,
-    Mark
+    Bomb
 }
 
 impl Default for FieldValue {
@@ -56,8 +55,7 @@ impl From<FieldValue> for usize {
             Six => 6,
             Seven => 7,
             Eight => 8,
-            Bomb => 999,
-            Mark => 1000
+            Bomb => 999
         }
     }
 }
@@ -74,8 +72,7 @@ impl From<&FieldValue> for &str {
             Six => "6",
             Seven => "7",
             Eight => "8",
-            Bomb => "B",
-            Mark => "M"
+            Bomb => "B"
         }
     }
 }

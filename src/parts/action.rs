@@ -19,20 +19,49 @@ use super::{
     }
 };
 
-#[derive(Default)]
 pub struct UserAction {
-    atype: UserActionType
+    atype: UserActionType,
+    args: Vec<String>
+}
+
+impl UserAction {
+    pub fn get_args(&self) -> &Vec<String> {
+        &self.args
+    }
+}
+
+impl Default for UserAction {
+    fn default() -> Self {
+        UserAction {
+            atype: UserActionType::default(),
+            args: Vec::new()
+        }
+    }
 }
 
 impl Display for UserAction {
-    fn fmt(&self, _f: &mut Formatter) -> FmtResult {
-        Ok(())
+    fn fmt(&self, f: &mut Formatter) -> FmtResult {
+        write!(f, "Action<Atype<{}>; Args<{:?}>>", self.atype, self.args)
     }
 }
 
 impl From<&str> for UserAction {
-    fn from(_s: &str) -> UserAction {
-        UserAction::new()
+    fn from(s: &str) -> UserAction {
+        let mut split = s.split_whitespace();
+        let atype : UserActionType;
+        let mut args : Vec<String> = Vec::new();
+        if let Some(typestr) = split.next() {
+            atype = UserActionType::from(typestr);
+        } else {
+            atype = UserActionType::default();
+        }
+        while let Some(argstr) = split.next() {
+            args.push(String::from(argstr));
+        }
+        UserAction {
+            atype,
+            args
+        }
     }
 }
 

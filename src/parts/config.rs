@@ -8,10 +8,17 @@ use crate::{
     part_traits::{
         config_traits::{
             ConfigT
+        },
+        action_traits::{
+            ActionHandler
         }
     },
     FmtResult,
-    Number
+    Number,
+    Message
+};
+use super::{
+    action::UserAction
 };
 
 #[derive(PartialEq,Eq,Clone,Copy)]
@@ -51,16 +58,16 @@ pub struct Settings {
     width: Number,
     height: Number,
     neighbourhood: Neighbourhood,
-    lifes: Number
+    bombs: Number
 }
 
 impl Default for Settings {
     fn default() -> Self {
         Settings {
-            width: 5,
-            height: 5,
+            width: 15,
+            height: 15,
             neighbourhood: Neighbourhood::default(),
-            lifes: 3
+            bombs: 15
         }
     }
 }
@@ -82,7 +89,7 @@ impl ConfigT<Number,Number> for Settings {
             0 => self.width,
             1 => self.height,
             2 => self.neighbourhood.into(),
-            3 => self.lifes,
+            3 => self.bombs,
             _ => panic!()
         }
     }
@@ -92,16 +99,25 @@ impl ConfigT<Number,Number> for Settings {
             0 => {self.width=val;self.width},
             1 => {self.height=val;self.height},
             2 => {self.neighbourhood=val.into();self.neighbourhood.into()},
-            3 => {self.lifes=val;self.lifes},
+            3 => {self.bombs=val;self.bombs},
             _ => panic!()
         }
     }
 
-    fn has(&self, _key: Number) -> bool {
-        true
+    fn has(&self, key: Number) -> bool {
+        [0,1,2,3].contains(&key)
     }
 
     fn can(&self, _key: Number, _val: Number) -> bool {
         true
+    }
+}
+
+impl ActionHandler for Settings {
+    type ActionThing = UserAction;
+    type ResultThing = Result<bool,Message>;
+
+    fn do_action(&mut self, _action: Self::ActionThing) -> Self::ResultThing {
+        Ok(true)
     }
 }
