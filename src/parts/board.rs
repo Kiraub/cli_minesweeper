@@ -180,7 +180,11 @@ impl MineBoard {
         } else {
             if let Ok(col) = usize::from_str_radix(&args[0],10) {
                 if let Ok(row) = usize::from_str_radix(&args[1],10) {
-                    Ok(Coord::create(col-1,row-1))
+                    if col == 0 || row == 0 {
+                        Err("Columns and rows are counted starting at one.")
+                    } else {
+                        Ok(Coord::create(col-1,row-1))
+                    }
                 } else {
                     Err("Problem parsing arguments.")
                 }
