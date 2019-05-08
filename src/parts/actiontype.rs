@@ -15,7 +15,7 @@ use crate::{
 pub enum UserActionType {
     Unknown,
     Reset,
-    Set,
+    Config,
     Mark,
     Quit,
     Pick,
@@ -33,7 +33,7 @@ impl Display for UserActionType {
         let out : &'static str = match self {
             UserActionType::Unknown => "Unknown",
             UserActionType::Reset => "Reset",
-            UserActionType::Set => "Set",
+            UserActionType::Config => "Config",
             UserActionType::Mark => "Mark",
             UserActionType::Quit => "Quit",
             UserActionType::Pick => "Pick",
@@ -47,7 +47,7 @@ impl From<&str> for UserActionType {
     fn from(s: &str) -> UserActionType {
         match &s.to_lowercase()[..] {
             "r" | "reset" => UserActionType::Reset,
-            "s" | "set" => UserActionType::Set,
+            "c" | "config" => UserActionType::Config,
             "m" | "mark" => UserActionType::Mark,
             "q" | "quit" => UserActionType::Quit,
             "p" | "pick" => UserActionType::Pick,
@@ -61,7 +61,7 @@ impl From<UserActionType> for usize {
         match s {
             UserActionType::Unknown => 999,
             UserActionType::Reset => 0,
-            UserActionType::Set => 1,
+            UserActionType::Config => 1,
             UserActionType::Mark => 2,
             UserActionType::Quit => 3,
             UserActionType::Pick => 4,
@@ -92,7 +92,7 @@ impl ActionTypeT for UserActionType {
             UserActionType::Pick,
             UserActionType::Mark,
             UserActionType::Reset,
-            UserActionType::Set,
+            UserActionType::Config,
             UserActionType::Help,
             UserActionType::Quit
         )

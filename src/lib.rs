@@ -25,10 +25,7 @@ pub fn parse_args(_args: &Vec<String>) -> Result<Settings, Box<dyn Error>> {
 
 pub fn run(game_settings: Settings) -> Result<(), Box<dyn Error>> {
     let mut minesweeper_game = Minesweeper::new(game_settings);
-    match minesweeper_game.start() {
-        Ok(msg) => println!("{}", msg),
-        Err(e_msg) => eprintln!("Problem starting game: {}", e_msg)
-    };
+    println!("{}", minesweeper_game.start());
     minesweeper_game.show_board();
     println!("Welcome to command-line interface minesweeper or CLI_MS for short!\n\
     Above you can see the minesweeper board. Use <Help> to list possible actions.");
@@ -46,7 +43,6 @@ pub fn run(game_settings: Settings) -> Result<(), Box<dyn Error>> {
         minesweeper_game.show_board();
         println!("\n{}\n", handle_result);
         if minesweeper_game.game_over() {
-            println!("Quitting game.");
             break;
         }
     }

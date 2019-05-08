@@ -38,6 +38,10 @@ pub struct MineBoard {
 impl MineBoard {
     pub fn init(&mut self, width: Number, height: Number, bombs: Number) -> Result<(), Message> {
         let field_size : usize = width * height;
+        if bombs >= field_size {
+            return Err(format!("Too many bombs ({}) for given field size {}x{}.", bombs, width, height))
+        }
+        self.field_map = HashMap::with_capacity(field_size);
         let mut rng = rand::thread_rng();
         let mut bomb_indices : HashSet<Number> = HashSet::with_capacity(bombs);
         let mut bomb_c = 0;

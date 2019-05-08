@@ -94,22 +94,28 @@ impl ConfigT<Number,Number> for Settings {
         }
     }
 
-    fn set(&mut self, key: Number, val: Number) -> Number {
+    fn set(&mut self, key: Number, val: Number) {
         match key {
-            0 => {self.width=val;self.width},
-            1 => {self.height=val;self.height},
-            2 => {self.neighbourhood=val.into();self.neighbourhood.into()},
-            3 => {self.bombs=val;self.bombs},
+            0 => self.width=val,
+            1 => self.height=val,
+            2 => self.neighbourhood=val.into(),
+            3 => self.bombs=val,
             _ => panic!()
-        }
+        };
     }
 
     fn has(&self, key: Number) -> bool {
         [0,1,2,3].contains(&key)
     }
 
-    fn can(&self, _key: Number, _val: Number) -> bool {
-        true
+    fn can(&self, key: Number, val: Number) -> bool {
+        match key {
+            0 => 5 <= val && val <= 20,
+            1 => 5 <= val && val <= 20,
+            2 => val == 0 || val == 1,
+            3 => 1 <= val && val <= (self.width*self.height),
+            _ => true
+        }
     }
 }
 
