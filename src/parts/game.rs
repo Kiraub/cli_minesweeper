@@ -190,7 +190,10 @@ impl ConfigParser<Number> for UserInput {
             "h" | "height"=> Some(1),
             "n" | "neighbourhood" => Some(2),
             "b" | "bombs" => Some(3),
-            _ => None
+            s => match usize::from_str_radix(s, 10) {
+                Ok(num) => Some(num),
+                Err(_) => None
+            }
         }
     }
 }
